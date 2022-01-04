@@ -3,10 +3,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+generator client {
+  provider = "prisma-client-js"
+}
+
 model Recipe {
   id           Int      @id @default(autoincrement())
   title        String
-  description  String
+  description  String?
   ratings      Int[]
   creationDate DateTime
 }

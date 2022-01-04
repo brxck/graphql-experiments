@@ -5,6 +5,12 @@
     "target": "ES2021",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "esModuleInterop": true
-  },
+    "esModuleInterop": true,
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "noImplicitAny": true,
+    "outDir": "build",
+    "rootDir": "src",
+    "resolveJsonModule": true
+  }
 }
