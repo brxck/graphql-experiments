@@ -3,13 +3,15 @@ import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
 import express from "express";
 import http from "http";
 
-import { getSchema } from "./schema";
+import { schema } from "./schema";
+import { context } from "./context";
 
 async function startApolloServer() {
   const app = express();
   const httpServer = http.createServer(app);
   const server = new ApolloServer({
-    schema: await getSchema(),
+    schema,
+    context,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });
   await server.start();

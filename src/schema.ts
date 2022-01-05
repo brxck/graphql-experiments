@@ -1,10 +1,15 @@
-import "reflect-metadata";
-import { buildSchema } from "type-graphql";
-import { RecipeResolver } from "./entities/recipe/resolvers";
+import { makeSchema } from "nexus";
+import { join } from "path";
+import * as types from "./graphql";
 
-export function getSchema(path?: string) {
-  return buildSchema({
-    resolvers: [RecipeResolver],
-    emitSchemaFile: path ?? false,
-  });
-}
+export const schema = makeSchema({
+  types,
+  outputs: {
+    typegen: join(__dirname, "generated", "nexus-typegen.ts"),
+    schema: join(__dirname, "generated", "schema.graphql"),
+  },
+  contextType: {
+    module: join(__dirname, "context.ts"),
+    export: "Context",
+  },
+});

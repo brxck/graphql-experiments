@@ -1,7 +1,7 @@
-import { prisma } from "../db";
+import { db } from "../db";
 
 async function seed() {
-  await prisma.recipe.createMany({
+  await db.recipe.createMany({
     data: [
       {
         description: "Desc 1",
