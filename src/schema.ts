@@ -1,10 +1,10 @@
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
-import { RecipeResolver } from "./entities/recipe/resolvers";
+import { resolvers } from "@generated/type-graphql";
 
 export function getSchema(path?: string) {
   return buildSchema({
-    resolvers: [RecipeResolver],
+    resolvers: resolvers,
     emitSchemaFile: path ?? false,
   });
 }

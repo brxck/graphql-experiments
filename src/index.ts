@@ -4,6 +4,7 @@ import express from "express";
 import http from "http";
 
 import { getSchema } from "./schema";
+import { db } from "./db";
 
 async function startApolloServer() {
   const app = express();
@@ -11,6 +12,7 @@ async function startApolloServer() {
   const server = new ApolloServer({
     schema: await getSchema(),
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+    context: () => ({ prisma: db, db }),
   });
   await server.start();
   server.applyMiddleware({ app });
