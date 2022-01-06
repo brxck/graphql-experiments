@@ -1,8 +1,18 @@
 overwrite: true
-schema: "./src/generated/schema.gql"
+schema: "./src/generated/schema.graphql"
+documents: "./src/queries/**.gql"
 generates:
   src/generated/graphql.ts:
     plugins:
       - "typescript"
       - "typescript-operations"
-      - "typescript-resolvers"
+  src/generated/react.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-query"
+  src/generated/request.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-graphql-request"

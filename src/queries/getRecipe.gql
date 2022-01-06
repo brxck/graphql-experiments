@@ -1,0 +1,6 @@
+query getRecipe($title: String!) {
+  recipe(title: $title) {
+    title
+    description
+  }
+}
