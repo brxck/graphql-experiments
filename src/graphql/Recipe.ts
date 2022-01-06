@@ -23,6 +23,13 @@ export const Recipe = objectType({
       deprecation: "Use `description` field instead",
     });
     t.nonNull.string("title");
+    t.nonNull.field("metadata", {
+      type: "Recipe",
+      deprecation: "This isn't even metadata, just use the root level pls",
+      resolve(root, args, ctx) {
+        return root;
+      },
+    });
   },
 });
 
