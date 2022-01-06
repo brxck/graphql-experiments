@@ -14,3 +14,48 @@ model Recipe {
   ratings      Int[]
   creationDate DateTime
 }
+
+enum UserRole {
+  client
+  admin
+  provider
+}
+
+model User {
+  id       String   @id @default(uuid())
+  fullName String
+  userRole UserRole @default(client)
+
+  createdAt   DateTime
+  createdById String
+}
+
+model Equipment {
+  id           String  @id @default(uuid())
+  name         String
+  model        String?
+  serialNumber String?
+
+  createdAt   DateTime
+  createdById String
+  Request     Request[]
+}
+
+model Request {
+  id          String        @id @default(uuid())
+  description String
+  severity    Int
+  status      RequestStatus
+  equipmentId String
+  equipment   Equipment     @relation(fields: [equipmentId], references: [id])
+
+  createdAt   DateTime
+  createdById String
+}
+
+enum RequestStatus {
+  internal
+  dispatch
+  pending
+  completed
+}
