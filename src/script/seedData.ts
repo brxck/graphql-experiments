@@ -1,28 +1,41 @@
 import { db } from "../db";
 
 async function seed() {
-  await db.recipe.createMany({
+  await db.user.createMany({
+    data: [
+      { fullName: "Bork Macklebot", createdById: "unknown", userRole: "admin" },
+    ],
+  });
+
+  const primeUser = await db.user.findFirst({ rejectOnNotFound: true });
+
+  await db.equipment.createMany({
     data: [
       {
-        description: "Desc 1",
-        title: "Recipe 1",
-        ratings: [0, 3, 1],
-        creationDate: new Date("2018-04-11"),
-      },
-      {
-        description: "Desc 2",
-        title: "Recipe 2",
-        ratings: [4, 2, 3, 1],
-        creationDate: new Date("2018-04-15"),
-      },
-      {
-        description: "Desc 3",
-        title: "Recipe 3",
-        ratings: [5, 4],
-        creationDate: new Date(),
+        name: "Goddard",
+        model: "Robot Dog",
+        serialNumber: "000",
+        createdById: primeUser.id,
       },
     ],
   });
+
+  const primeEquipment = await db.equipment.findFirst({
+    rejectOnNotFound: true,
+  });
+
+  db.request.createMany({
+    data: [
+      {
+        description: "halp",
+        equipmentId: primeEquipment.id,
+        createdById: primeUser.id,
+        severity: 5,
+        status: "pending",
+      },
+    ],
+  });
+
   console.log("Seeded");
 }
 

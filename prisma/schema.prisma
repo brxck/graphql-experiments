@@ -7,14 +7,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Recipe {
-  id           Int      @id @default(autoincrement())
-  title        String
-  description  String?
-  ratings      Int[]
-  creationDate DateTime
-}
-
 enum UserRole {
   client
   admin
@@ -22,23 +14,21 @@ enum UserRole {
 }
 
 model User {
-  id       String   @id @default(uuid())
-  fullName String
-  userRole UserRole @default(client)
-
-  createdAt   DateTime
+  id          String   @id @default(uuid())
+  fullName    String
+  userRole    UserRole @default(client)
+  createdAt   DateTime @default(now())
   createdById String
 }
 
 model Equipment {
-  id           String  @id @default(uuid())
+  id           String    @id @default(uuid())
   name         String
   model        String?
   serialNumber String?
-
-  createdAt   DateTime
-  createdById String
-  Request     Request[]
+  createdAt    DateTime  @default(now())
+  createdById  String
+  Request      Request[]
 }
 
 model Request {
@@ -48,8 +38,7 @@ model Request {
   status      RequestStatus
   equipmentId String
   equipment   Equipment     @relation(fields: [equipmentId], references: [id])
-
-  createdAt   DateTime
+  createdAt   DateTime      @default(now())
   createdById String
 }
 
